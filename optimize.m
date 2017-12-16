@@ -37,6 +37,11 @@ sets=5;
 i=0;
 while i<sets
     i=i+1;
+    %if i==1
+    A=1:length(block); %else A=randperm(length(block)); end
+    bestSequences(i,1:end)=A;
+    bestCosts(i)=cost(bestSequences(i,:),blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
+    fprintf('Initial Cost: %.4f\n', bestCosts(i));
 %% Repeat Sets
     n=0;
     while n<maxPartitions
@@ -75,7 +80,7 @@ while i<sets
                 end
             end
         end
-        fprintf('Set = %d out of %d, Partitions = %d, 2-Opt Moves = %d, 3-Opt Moves = %d, 4-Opt Moves = %d, Cost = %.10f\n',i,sets,partitions,repeat2opt,floor(repeat2opt/5),floor(repeat2opt/20),bestCost);   
+        fprintf('Set = %d out of %d, Partitions = %d, 2-Opt Moves = %d, 3-Opt Moves = %d, 4-Opt Moves = %d, Cost = %.10f\n',i,sets,partitions,repeat2opt,floor(repeat2opt/5),floor(repeat2opt/20),bestCost);
     end
 end
 finalSequence=bestSequence;
