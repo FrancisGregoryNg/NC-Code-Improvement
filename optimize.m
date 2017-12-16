@@ -1,19 +1,19 @@
 function [bestSequences,trials] = optimize(trials,sets,repeat2opt,repeat3opt,repeat4opt,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth)
 %{
 Objective: Perform the 2-opt, 3-opt, and 4-opt algorithms on the block
-    sequence to arrive at an improved sequence with a minimized cost, 
+    sequence to arrive at an improved sequence with a minimized cost,
     though not assured to be optimal. Multiple trials are done with
-    multiple sets of the 2-opt, 3-opt, and 4-opt algorithms performed 
+    multiple sets of the 2-opt, 3-opt, and 4-opt algorithms performed
     repeatedly in each set. The best results of each trial are recorded to
     be used for rectification.
     Note: The recommended values for trials, sets, repeat2opt, repeat3opt,
-        and repeat4opt are [10,10,25,10,5]. These have been determined to 
+        and repeat4opt are [10,10,25,10,5]. These have been determined to
         be effective by simple trial-and-error, so improvements are quite
         possible.
-        
-Input:   
-    trials = the number of trials where the sequence with the best cost is  
-        determined from a random starting sequence 
+
+Input:
+    trials = the number of trials where the sequence with the best cost is
+        determined from a random starting sequence
     sets = the number of sets within each trial where the 2-opt, 3-opt, and
         4-opt moves will be performed
     repeat2opt = the number of 2-opt moves in a set
@@ -23,9 +23,9 @@ Input:
         connection points between two blocks
     block = the structured block data
         where:
-            block.indices = the line structure indices of the lines of code 
+            block.indices = the line structure indices of the lines of code
                 contained within the block
-            block.curveType = the type of block: 'point', 'open' contour, 
+            block.curveType = the type of block: 'point', 'open' contour,
                 or 'closed' contour
             block.connectionPoints = the [x y] values of the candidate
                 connection points for the block to be connected to other
@@ -38,19 +38,20 @@ Input:
                 of code contained within the block
     distance = the distance matrix
     plungeRate = the speed in which the tool plunges into the material
-    feedRate = the speed in which the tool moves above the material, cuts 
-        through the material, or retracts from the material. 
+    feedRate = the speed in which the tool moves above the material, cuts
+        through the material, or retracts from the material.
     height = the level at which the tool hovers over the material during
         rapid movement
     neutral = the level to which the tool descends right before plunging
     depth = the level at which the tool cuts through the material
-Output:  
+Output:
     bestSequences = the array of best sequences which are candidates for
-        the final sequence after rectification to meet connection 
+        the final sequence after rectification to meet connection
         requirements for open contours and closed contours (i.e. open
         contours must be connected through its two ends, closed contours
         must be connected only at one point).
 %}
+%Should make the opt operations in segments of the code to make it more manageable
 %% Initialize Arrays
 bestCosts=zeros(trials,1);
 bestSequences=ones(trials,length(block));    %Ones are used because 1 will be fixed as the initial point of all sequences.
@@ -58,8 +59,8 @@ bestSequences=ones(trials,length(block));    %Ones are used because 1 will be fi
 i=0;
 while i<trials
     i=i+1;
-    %if i==1 
-    A=([1:length(block)]); %else A=randperm(length(block)); end 
+    %if i==1
+    A=([1:length(block)]); %else A=randperm(length(block)); end
     bestSequences(i,2:end)=A(A~=1);  %The use of Ones in initializing the array makes it possible to just specify the other values so that 1 will be the intial point in the sequence.
     bestCosts(i)=cost(bestSequences(i,:),blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
     fprintf('Initial Cost: %.4f\n', bestCosts(i));
