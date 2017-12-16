@@ -1,4 +1,4 @@
-function [bestSequence] = optimize(blockConnections,block)
+function [finalSequence] = optimize(blockConnections,block,distance)
 %{
 Objective: Perform the 2-opt, 3-opt, and 4-opt algorithms on the block
     sequence to arrive at an improved sequence with a minimized cost,
@@ -22,31 +22,26 @@ Input:
                 connection points
             block.length = the length of the contour described by the lines
                 of code contained within the block
+    distance = the distance matrix
 Output:
-    bestSequences = the array of best sequences which are candidates for
-        the final sequence after rectification to meet connection
-        requirements for open contours and closed contours (i.e. open
-        contours must be connected through its two ends, closed contours
-        must be connected only at one point).
+    finalSequence = the final sequence to be used for the improved NC code
 %}
 %% Initialize Arrays
 bestSequence=1:length(block);
-bestCost=cost(bestSequence(:),blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
+bestCost=cost(bestSequence(:),blockConnections,distance);
 fprintf('Initial Cost: %.4f\n', bestCost);
-maxPartitions=length(block)/7;
+maxPartitions=floor(length(block)/7);
+partitions=1;
 %% Retries Using Initial Sequence
-trials=10;
+sets=5;
 i=0;
-while i<trials
+while i<sets
     i=i+1;
 %% Repeat Sets
-    sets=maxPartitions;
-    partitions=0;
     n=0;
-    while n<sets
+    while n<maxPartitions
         n=n+1;
-        fprintf('Trial = %d out of %d, Set = %d out of %d, Cost = %.10f\n',i,trials,n,sets,bestCost);
-        partitions=partitions-n*(-1^i);                                  %number of partitions varies as the current set number progresses; each trial alternately reverses the partition increase/decrease (initially increases)
+        if n~=1, partitions=partitions-((-1)^i); end            %number of partitions varies as the current set number progresses; each trial alternately reverses the partition increase/decrease (initially increases)
         lengthOfPartition=floor(length(block)/partitions);      %does not include the last partition, which is longer than the rest
         p=0;
         previousEnd=0;
@@ -55,25 +50,33 @@ while i<trials
             p=p+1;
             A=previousEnd+1;
             if p==partitions, B=length(block); else B=previousEnd+lengthOfPartition; previousEnd=B; end  %complete the sequence when at the final partition
-            repeat2opt=ceil(100*(length(block)/partitions));    %more manipulations when there are more elements in the partition
+            repeat2opt=ceil(50*(length(block)/partitions));    %more manipulations when there are more elements in the partition
             x=0;
             while x<repeat2opt
                 x=x+1;
-                fprintf('\t2-Opt = %d out of %d... ',x,repeat2opt);
-                [bestSequence(A:B),~]=perform2opt(bestSequence(A:B),bestCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
-                fprintf('done.  \t Current Cost: %.10f\n',currentCost);
+                currentSequence=bestSequence;
+                [currentSequence(A:B)]=perform2opt(bestSequence(A:B),blockConnections,distance);
+                currentCost=cost(currentSequence(:),blockConnections,distance);
+                bestCost=cost(bestSequence(:),blockConnections,distance);
+                if currentCost<bestCost, bestSequence=currentSequence; end
                 if mod(x,5)==0 
-                    fprintf('Performing 3-opt... ');
-                    [bestSequence(A:B),~]=perform3opt(bestSequence(A:B),bestCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth); 
-                    fprintf('done.  \t Current Cost: %.10f\n',currentCost);
+                    currentSequence=bestSequence;
+                    [currentSequence(A:B)]=perform3opt(bestSequence(A:B),blockConnections,distance); 
+                    currentCost=cost(currentSequence(:),blockConnections,distance);
+                    bestCost=cost(bestSequence(:),blockConnections,distance);
+                    if currentCost<bestCost, bestSequence=currentSequence; end
                 end
                 if mod(x,20)==0
-                    fprintf('Performing 4-opt... ');
-                    [bestSequence(A:B),~]=perform4opt(bestSequence(A:B),bestCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth); 
-                    fprintf('done.  \t Current Cost: %.10f\n',currentCost);
+                    currentSequence=bestSequence;
+                    [currentSequence(A:B)]=perform4opt(bestSequence(A:B),blockConnections,distance); 
+                    currentCost=cost(currentSequence(:),blockConnections,distance);
+                    bestCost=cost(bestSequence(:),blockConnections,distance);
+                    if currentCost<bestCost, bestSequence=currentSequence; end
                 end
             end
         end
+        fprintf('Set = %d out of %d, Partitions = %d, 2-Opt Moves = %d, 3-Opt Moves = %d, 4-Opt Moves = %d, Cost = %.10f\n',i,sets,partitions,repeat2opt,floor(repeat2opt/5),floor(repeat2opt/20),bestCost);   
     end
 end
+finalSequence=bestSequence;
 end

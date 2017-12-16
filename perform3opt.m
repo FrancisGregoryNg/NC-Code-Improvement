@@ -1,4 +1,4 @@
-function [bestSequence,bestCost] = perform3opt(initialSequence,initialCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth)
+function [bestSequence] = perform3opt(initialSequence,blockConnections,distance)
 %{
 Objective: Find three random numbers in the sequence. These will split the
     sequence into three segments. Consider A, B, and C as the random
@@ -47,7 +47,7 @@ Output:
 %}
 %% Initialize the Output
 bestSequence=initialSequence;
-bestCost=initialCost;
+bestCost=cost(initialSequence,blockConnections,distance);
 %% Starting Criterion
 if length(initialSequence)<(2*3), return; end
 %% Dislocation Points
@@ -78,7 +78,7 @@ while Y<7;
     if Y==6, currentSequence=horzcat(currentSequence, flip(segment23), segment12       ); end
     if Y==7, currentSequence=horzcat(currentSequence, flip(segment23), flip(segment12) ); end
     currentSequence=horzcat(currentSequence,X(3)+1:last);
-    currentCost=cost(currentSequence,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
+    currentCost=cost(currentSequence,blockConnections,distance);
     if currentCost<bestCost, bestSequence=currentSequence; bestCost=currentCost; end
 end
 end
