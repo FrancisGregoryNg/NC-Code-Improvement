@@ -51,18 +51,16 @@ Output:
         contours must be connected through its two ends, closed contours
         must be connected only at one point).
 %}
-%Should make the opt operations in segments of the code to make it more manageable
-%Test
 %% Initialize Arrays
 bestCosts=zeros(trials,1);
-bestSequences=ones(trials,length(block));    %Ones are used because 1 will be fixed as the initial point of all sequences.
+bestSequences=zeros(trials,length(block));    %Ones are used because 1 will be fixed as the initial point of all sequences.
 %% Retries Using Initial Sequence
 i=0;
 while i<trials
     i=i+1;
     %if i==1
-    A=([1:length(block)]); %else A=randperm(length(block)); end
-    bestSequences(i,2:end)=A(A~=1);  %The use of Ones in initializing the array makes it possible to just specify the other values so that 1 will be the intial point in the sequence.
+    A=1:length(block); %else A=randperm(length(block)); end
+    bestSequences(i,1:end)=A;
     bestCosts(i)=cost(bestSequences(i,:),blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
     fprintf('Initial Cost: %.4f\n', bestCosts(i));
 %% Repeat Sets
