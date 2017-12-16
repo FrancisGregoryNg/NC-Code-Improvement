@@ -52,6 +52,7 @@ Output:
         must be connected only at one point).
 %}
 %Should make the opt operations in segments of the code to make it more manageable
+%Test
 %% Initialize Arrays
 bestCosts=zeros(trials,1);
 bestSequences=ones(trials,length(block));    %Ones are used because 1 will be fixed as the initial point of all sequences.
