@@ -1,4 +1,4 @@
-function [bestSequence,bestCost] = perform4opt(initialSequence,initialCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth)
+function [bestSequence] = perform4opt(initialSequence,blockConnections,distance)
 %{
 Objective: Find four random numbers in the sequence. These will split the
     sequence into four segments. Consider A, B, C, and D as the random
@@ -48,7 +48,7 @@ Output:
 %}
 %% Initialize the Output
 bestSequence=initialSequence;
-bestCost=initialCost;
+bestCost=cost(initialSequence,blockConnections,distance);
 %% Starting Criterion
 if length(initialSequence)<(2*4), return; end
 %% Dislocation Points
@@ -124,7 +124,7 @@ while Y<47
     if Y==46, currentSequence=horzcat(currentSequence, flip(segment34), flip(segment23), segment12       ); end
     if Y==47, currentSequence=horzcat(currentSequence, flip(segment34), flip(segment23), flip(segment12) ); end
     currentSequence=horzcat(currentSequence,X(4)+1:last);
-    currentCost=cost(currentSequence,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
+    currentCost=cost(currentSequence,blockConnections,distance);
     if currentCost<bestCost, bestSequence=currentSequence; bestCost=currentCost; end
 end
 end

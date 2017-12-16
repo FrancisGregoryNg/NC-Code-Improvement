@@ -1,4 +1,4 @@
-function [bestSequence,bestCost] = perform2opt(initialSequence,initialCost,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth)
+function [bestSequence] = perform2opt(initialSequence,blockConnections,distance)
 %{
 Objective: Find two random numbers in the sequence. These will split the
     sequence into two segments. Consider A as the smaller random number and 
@@ -32,20 +32,13 @@ Input:
             block.length = the length of the contour described by the lines
                 of code contained within the block
     distance = the distance matrix
-    plungeRate = the speed in which the tool plunges into the material
-    feedRate = the speed in which the tool moves above the material, cuts 
-        through the material, or retracts from the material. 
-    height = the level at which the tool hovers over the material during
-        rapid movement
-    neutral = the level to which the tool descends right before plunging
-    depth = the level at which the tool cuts through the material
 Output: 
     bestSequence = the improved sequence of blocks
     bestCost = the cost of the improved block sequence
 %}
 %% Initialize the Output
 bestSequence=initialSequence;
-bestCost=initialCost;
+bestCost=cost(initialSequence,blockConnections,distance);
 %% Starting Criterion
 if length(initialSequence)<(2*2), return; end
 %% Dislocation Points
@@ -59,6 +52,6 @@ while (1)
 end
 %% Segment Manipulation
 currentSequence=horzcat(initialSequence(1:A),initialSequence(flip(A+1:B)),initialSequence(B+1:end));
-currentCost=cost(currentSequence,blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
-if currentCost<bestCost, bestSequence=currentSequence; bestCost=currentCost; end
+currentCost=cost(currentSequence,blockConnections,distance);
+if currentCost<bestCost, bestSequence=currentSequence; end
 end
