@@ -100,10 +100,10 @@ for i = 1:length(finalSequence)
             temporary = line(blockLineOrder);         %new flipped order
             [blockLines(1:end).X] = temporary.X;
             [blockLines(1:end).Y] = temporary.Y;
-            [blockLines(2:end).G] = flip(line(block(currentBlock).indices(2:end)).G); %flipping the sequence necessitates that the end points pertaining to the operation is shifted so that the endpoint is correct
-            [blockLines(2:end).I] = flip(line(block(currentBlock).indices(2:end)).I); %include I, J, K in the flipping so they pair with the rotation operation
-            [blockLines(2:end).J] = flip(line(block(currentBlock).indices(2:end)).J);
-            [blockLines(2:end).K] = flip(line(block(currentBlock).indices(2:end)).K);
+            [blockLines(2:end).G] = flip(line([block(currentBlock).indices(2:end)]).G); %flipping the sequence necessitates that the end points pertaining to the operation is shifted so that the endpoint is correct
+            [blockLines(2:end).I] = flip(line([block(currentBlock).indices(2:end)]).I); %include I, J, K in the flipping so they pair with the rotation operation
+            [blockLines(2:end).J] = flip(line([block(currentBlock).indices(2:end)]).J);
+            [blockLines(2:end).K] = flip(line([block(currentBlock).indices(2:end)]).K);
             n=0;
             while n<length(blockLines)
                 n=n+1;
