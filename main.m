@@ -11,7 +11,7 @@ close;
 [distance,globalConnectionList] = calculateDistances(block);
 [distance] = cleanDistanceMatrix(distance,block);
 [blockConnections] = blockDistance(block,distance);
-[finalSequence,trials] = optimize(blockConnections,block,distance,plungeRate,feedRate,height,neutral,depth);
+[finalSequence,trials] = optimize(blockConnections,block);
 [actualConnections] = rectify(finalSequence,blockConnections,block,distance);
 [finalCode] = translator(finalSequence,actualConnections,block,line,plungeRate,feedRate,height,neutral);
 file = fopen('betterdot.nc', 'w');
