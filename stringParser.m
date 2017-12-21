@@ -27,8 +27,31 @@ Output:
     labels = the letter addresses
 %}
 %% Specify the Delimiter Alphabet for Splitting
-alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', ';'};
+alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', ';'];
 %% Parse the String and Split Into Labels and Corresponding Values
-[values,labels] = strsplit(code, alphabet);
-values(1) = []; %initial value is blank since labels are paired to the values that come after, not before
+%[values,labels] = strsplit(code, alphabet);
+%values(1) = []; %initial value is blank since labels are paired to the values that come after, not before
+
+%returns an array which is the same size as 'code' but has '1' if element of code exists in 'alphabet'
+%otherwise 0
+elements = ismember(code, alphabet);
+
+labelsChar = code(elements);
+
+labels = cell(1, length(labelsChar));
+for i = 1:length(labelsChar)
+    labels{i} = labelsChar(i);
+end
+
+indices = find(elements);
+indices = [indices length(code)+1];
+values = cell(1,length(labels));
+for i = 1:length(labels)
+    word = [];
+    for j = indices(i)+1:(indices(i+1)-1)
+        word = [word code(j)];
+    end
+    values(i) = {word};
+end
+
 end

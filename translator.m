@@ -175,16 +175,16 @@ end
 %% Finalize the Optimized Code into a String
 finalCode = '';
 for i = 1:length(finalLines)
-    newLine = strcat('N', num2str(finalLines(i).N));
-    if ~isempty(finalLines(i).M), newLine = strcat(newLine, 'M', num2str(finalLines(i).M)); end
-    if ~isempty(finalLines(i).G), newLine = strcat(newLine, 'G', num2str(finalLines(i).G)); end
-    if ~isempty(finalLines(i).X), newLine = strcat(newLine, 'X', num2str(finalLines(i).X)); end
-    if ~isempty(finalLines(i).Y), newLine = strcat(newLine, 'Y', num2str(finalLines(i).Y)); end
-    if ~isempty(finalLines(i).Z), newLine = strcat(newLine, 'Z', num2str(finalLines(i).Z)); end
-    if ~isempty(finalLines(i).I), newLine = strcat(newLine, 'I', num2str(finalLines(i).I)); end
-    if ~isempty(finalLines(i).J), newLine = strcat(newLine, 'J', num2str(finalLines(i).J)); end
-    if ~isempty(finalLines(i).K), newLine = strcat(newLine, 'K', num2str(finalLines(i).K)); end
-    if ~isempty(finalLines(i).F), newLine = strcat(newLine, 'F', num2str(finalLines(i).F)); end
-    finalCode = strcat(finalCode, newLine, '\n');
+    newLine = ['N' DoubleArray2String(finalLines(i).N)];
+    if ~isempty(finalLines(i).M), newLine = [newLine, 'M', DoubleArray2String(finalLines(i).M)]; end
+    if ~isempty(finalLines(i).G), newLine = [newLine, 'G', DoubleArray2String(finalLines(i).G)]; end
+    if ~isempty(finalLines(i).X), newLine = [newLine, 'X', DoubleArray2String(finalLines(i).X)]; end
+    if ~isempty(finalLines(i).Y), newLine = [newLine, 'Y', DoubleArray2String(finalLines(i).Y)]; end
+    if ~isempty(finalLines(i).Z), newLine = [newLine, 'Z', DoubleArray2String(finalLines(i).Z)]; end
+    if ~isempty(finalLines(i).I), newLine = [newLine, 'I', DoubleArray2String(finalLines(i).I)]; end
+    if ~isempty(finalLines(i).J), newLine = [newLine, 'J', DoubleArray2String(finalLines(i).J)]; end
+    if ~isempty(finalLines(i).K), newLine = [newLine, 'K', DoubleArray2String(finalLines(i).K)]; end
+    if ~isempty(finalLines(i).F), newLine = [newLine, 'F', DoubleArray2String(finalLines(i).F)]; end
+    finalCode = [finalCode, newLine, '\n'];
 end
 end

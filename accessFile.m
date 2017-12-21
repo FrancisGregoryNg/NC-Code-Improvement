@@ -25,5 +25,44 @@ Output:
     codeArray = cell array of strings that each contains lines of code
 %}
 %% Import Data
-codeArray = importdata(file);
+%codeArray = importdata(file);
+
+fileID = fopen(file);
+
+rawCode = fread(fileID);
+
+numOfLines = 0;
+for i = 1:length(rawCode)
+    if rawCode(i) == 10
+        numOfLines = numOfLines + 1;
+    end
+end
+
+codeChars = char(numOfLines);
+
+rowNumber = 1;
+colNumber = 1;
+for i = 1:length(rawCode)
+    if rawCode(i) == 13
+        colNumber = 1;
+    elseif rawCode(i) == 10
+        rowNumber = rowNumber + 1;
+    else
+        codeChars(rowNumber, colNumber) = cast(rawCode(i), 'char');
+        colNumber = colNumber + 1;
+    end
+end
+
+for i = 1:size(codeChars, 1)
+    codeArray{i} = codeChars(i, :);
+end
+codeArray = codeArray';
+%{
+tline = fgets(fileID);
+codeArray = [];
+while ischar(tline)
+    codeArray = [codeArray; cellstr(tline)];
+    tline = fgets(fileID);
+end
+%}
 end
