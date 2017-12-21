@@ -1,0 +1,21 @@
+mcc -C -o NcCodeImprovement -W main:NcCodeImprovement -T link:exe -d 'D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing' -v 'D:\D Documents\Git\NC-Code-Improvement\main.m' 
+Compiler version: 6.1 (R2015b)
+
+Dependency analysis by REQUIREMENTS.
+
+[Warning: Adding path "D:\D Documents\Git\NC-Code-Improvement" to Compiler path
+instance.] 
+[] 
+Parsing file "D:\D Documents\Git\NC-Code-Improvement\main.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 0 temporary MEX authorization files.
+Generating file "D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\readme.txt".
+Packaging...
+Adding custom icon D:\D Program Files\MATLAB\R2015b\toolbox\compiler\Resources\default_icon.ico to D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\NcCodeImprovement.exe.
+Attempting to embed the CTF archive into the application D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\NcCodeImprovement.exe.
+Finished embedding CTF archive. Deleting the external CTF archive.
+Creating the bundle...
+Web based installer created at D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_redistribution\MyAppInstaller_web.exe.
+Self contained installer created at D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_redistribution\MyAppInstaller_mcr.exe.
+Packaging complete.
+Elapsed packaging time was: 1 minutes and 5 seconds.

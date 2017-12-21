@@ -1,0 +1,144 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="4200585665" file="D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement.prj" location="D:\D Documents\Git\NC-Code-Improvement" name="NcCodeImprovement" preferred-package-location="D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>NcCodeImprovement</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark>Francis Ng</param.authnamewatermark>
+    <param.email>francis_gregory_ng@dlsu.edu.ph</param.email>
+    <param.company>De La Salle University</param.company>
+    <param.summary>MATLAB code for improving the milling time of 2D contours by reducing the total inter-contour distance.</param.summary>
+    <param.description />
+    <param.screenshot>${PROJECT_ROOT}\image10.png</param.screenshot>
+    <param.guid />
+    <param.installpath.string>\NcCodeImprovement\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.target.install.notes />
+    <param.intermediate>${PROJECT_ROOT}\NcCodeImprovement\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\NcCodeImprovement\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\NcCodeImprovement\for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.required.mcr.products>
+      <item>35000</item>
+      <item>35010</item>
+      <item>35001</item>
+    </param.required.mcr.products>
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>true</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>false</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.description />
+      <param.guid />
+      <param.installpath.combo />
+      <param.logo />
+      <param.target.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\main.m</file>
+    </fileset.main>
+    <fileset.resources />
+    <fileset.package />
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}\accessFile.m</file>
+      <file>${PROJECT_ROOT}\blockDistance.m</file>
+      <file>${PROJECT_ROOT}\calculateDistances.m</file>
+      <file>${PROJECT_ROOT}\circularDistance.m</file>
+      <file>${PROJECT_ROOT}\cleanDistanceMatrix.m</file>
+      <file>${PROJECT_ROOT}\completeLines.m</file>
+      <file>${PROJECT_ROOT}\cost.m</file>
+      <file>${PROJECT_ROOT}\deleteComments.m</file>
+      <file>${PROJECT_ROOT}\generateBlocks.m</file>
+      <file>${PROJECT_ROOT}\getFValues.m</file>
+      <file>${PROJECT_ROOT}\getZValues.m</file>
+      <file>${PROJECT_ROOT}\linearDistance.m</file>
+      <file>${PROJECT_ROOT}\optimize.m</file>
+      <file>${PROJECT_ROOT}\perform2opt.m</file>
+      <file>${PROJECT_ROOT}\perform3opt.m</file>
+      <file>${PROJECT_ROOT}\perform4opt.m</file>
+      <file>${PROJECT_ROOT}\rectify.m</file>
+      <file>${PROJECT_ROOT}\segregateLines.m</file>
+      <file>${PROJECT_ROOT}\stringParser.m</file>
+      <file>${PROJECT_ROOT}\translator.m</file>
+    </fileset.depfun>
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}\NcCodeImprovement\for_testing" name="splash.png" optional="false">D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\NcCodeImprovement\for_testing" name="NcCodeImprovement.exe" optional="false">D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\NcCodeImprovement.exe</file>
+      <file location="${PROJECT_ROOT}\NcCodeImprovement\for_testing" name="readme.txt" optional="true">D:\D Documents\Git\NC-Code-Improvement\NcCodeImprovement\for_testing\readme.txt</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>D:\D Program Files\MATLAB\R2015b</root>
+      <toolboxes>
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>6.2</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
