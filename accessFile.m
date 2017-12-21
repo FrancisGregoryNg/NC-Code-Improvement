@@ -53,10 +53,10 @@ for i = 1:length(rawCode)
     end
 end
 
+codeArray = cell(size(codeChars, 1), 1);
 for i = 1:size(codeChars, 1)
     codeArray{i} = codeChars(i, :);
 end
-codeArray = codeArray';
 %{
 tline = fgets(fileID);
 codeArray = [];

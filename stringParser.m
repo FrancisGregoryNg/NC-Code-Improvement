@@ -36,12 +36,7 @@ alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q',
 %otherwise 0
 elements = ismember(code, alphabet);
 
-labelsChar = code(elements);
-
-labels = cell(1, length(labelsChar));
-for i = 1:length(labelsChar)
-    labels{i} = labelsChar(i);
-end
+labels = code(elements);
 
 indices = find(elements);
 indices = [indices length(code)+1];

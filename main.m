@@ -16,10 +16,6 @@
 %    along with NC-Code-Improvement.  If not, see <http://www.gnu.org/licenses/>.
 %%
 function [] = main(varargin)
-
-clearvars -except varargin;
-close;
-
 if nargin < 2
     error('Not enough input arguments!');
 end
