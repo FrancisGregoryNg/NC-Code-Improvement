@@ -15,10 +15,17 @@
 %    You should have received a copy of the GNU General Public License
 %    along with NC-Code-Improvement.  If not, see <http://www.gnu.org/licenses/>.
 %%
-clear;
-clc;
-close;
-[codeArray] = accessFile('test.nc');
+function [] = main(varargin)
+clearvars -except varargin
+
+if nargin ~= 2
+    error('Wrong number of arguments');
+end
+
+inputFile = varargin{1};
+outputFile = varargin{2};
+
+[codeArray] = accessFile(inputFile);
 [codeArray] = deleteComments(codeArray);
 [line] = segregateLines(codeArray);
 [Z,height,neutral,depth] = getZValues(line);
@@ -31,6 +38,7 @@ close;
 [finalSequence] = optimize(blockConnections,block,distance);
 [actualConnections] = rectify(finalSequence,blockConnections,block,distance);
 [finalCode] = translator(finalSequence,actualConnections,block,line,plungeRate,feedRate,height,neutral);
-file = fopen('improved.nc', 'w');
+file = fopen(outputFile, 'w');
 fprintf(file, finalCode);
 fclose('all');
+end
